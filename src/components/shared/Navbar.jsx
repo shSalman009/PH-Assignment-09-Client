@@ -23,9 +23,7 @@ import {
 import { ThemeToggle } from "./ThemeToggle";
 
 export default function Navbar() {
-  const user = {
-    name: "John Doe",
-  };
+  const user = false;
 
   const navLinks = [
     { name: "Home", href: "/" },
