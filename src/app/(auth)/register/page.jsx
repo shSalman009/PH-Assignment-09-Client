@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Field,
@@ -27,25 +26,13 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Spinner } from "@/components/ui/spinner";
 import { FcGoogle } from "react-icons/fc";
-
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  photoUrl: z.string().url("Invalid URL format"),
-  password: z
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .regex(
-      /(?=.*[a-z])(?=.*[A-Z])/,
-      "Password must include uppercase and lowercase letters",
-    ),
-});
+import { registerFormSchema } from "@/lib/schemas";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(registerFormSchema),
     defaultValues: {
       name: "",
       email: "",

@@ -22,19 +22,12 @@ import {
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "./ThemeToggle";
 import { authClient } from "@/lib/auth-client";
-
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Ideas", href: "/ideas" },
-  { name: "Add Idea", href: "/add-idea", private: true },
-  { name: "My Ideas", href: "/my-ideas", private: true },
-  { name: "My Interactions", href: "/my-interactions", private: true },
-];
+import { navLinks } from "@/config/navigation";
 
 export default function Navbar() {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
-  console.log(user);
+
   const handleLogout = async () => {
     await authClient.signOut();
   };
