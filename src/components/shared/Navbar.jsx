@@ -21,17 +21,23 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "./ThemeToggle";
+import { authClient } from "@/lib/auth-client";
+
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "Ideas", href: "/ideas" },
+  { name: "Add Idea", href: "/add-idea", private: true },
+  { name: "My Ideas", href: "/my-ideas", private: true },
+  { name: "My Interactions", href: "/my-interactions", private: true },
+];
 
 export default function Navbar() {
-  const user = false;
-
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Ideas", href: "/ideas" },
-    { name: "Add Idea", href: "/add-idea", private: true },
-    { name: "My Ideas", href: "/my-ideas", private: true },
-    { name: "My Interactions", href: "/my-interactions", private: true },
-  ];
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
+  console.log(user);
+  const handleLogout = async () => {
+    await authClient.signOut();
+  };
 
   const filteredLinks = navLinks.filter((link) => !link.private || user);
 
@@ -61,7 +67,12 @@ export default function Navbar() {
         <div className="flex items-center space-x-4">
           <ThemeToggle />
 
-          {user ? (
+          {isPending ? (
+            <div className="flex items-center gap-2">
+              <div className="w-20 h-4 rounded bg-gray-300 animate-pulse" />
+              <div className="w-8 h-8 rounded-full bg-gray-300 animate-pulse" />
+            </div>
+          ) : user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -69,8 +80,14 @@ export default function Navbar() {
                   className="relative h-9 w-9 rounded-full"
                 >
                   <Avatar className="h-9 w-9">
-                    <AvatarImage src={user?.photo} alt={user?.name} />
-                    <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                    <AvatarImage
+                      referrerPolicy="no-referrer"
+                      src={user?.image}
+                      alt={user?.name}
+                    />
+                    <AvatarFallback>
+                      {user?.name ? user.name.charAt(0) : "U"}
+                    </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -80,7 +97,10 @@ export default function Navbar() {
                 <DropdownMenuItem asChild>
                   <Link href="/profile">Profile Management</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-destructive">
+                <DropdownMenuItem
+                  className="text-destructive"
+                  onSelect={handleLogout}
+                >
                   Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>

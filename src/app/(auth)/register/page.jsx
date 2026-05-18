@@ -22,11 +22,11 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { FaChrome } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Spinner } from "@/components/ui/spinner";
+import { FcGoogle } from "react-icons/fc";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -82,6 +82,13 @@ export default function RegisterPage() {
     setLoading(false);
   };
 
+  // Google registration handler
+  const handleGoogleLogin = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+
   return (
     <div className="container mx-auto relative flex pt-20 pb-20 items-center justify-center lg:px-0 px-4">
       <Card className="w-full max-w-[450px] shadow-lg border-muted-foreground/10">
@@ -98,8 +105,9 @@ export default function RegisterPage() {
             variant="outline"
             className="w-full py-6 text-base"
             type="button"
+            onClick={handleGoogleLogin}
           >
-            <FaChrome className="mr-2 h-5 w-5" />
+            <FcGoogle className="mr-2 h-5 w-5" />
             Sign up with Google
           </Button>
 
