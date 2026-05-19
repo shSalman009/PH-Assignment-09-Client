@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
   Calendar,
   User,
@@ -10,6 +11,7 @@ import {
 } from "lucide-react";
 import { fetchIdeaById } from "@/lib/ideas/data";
 import Image from "next/image";
+import CommentSystem from "@/components/ideaDetails/CommentSystem";
 
 export default async function IdeaDetailsPage({ params }) {
   const { id } = await params;
@@ -72,6 +74,11 @@ export default async function IdeaDetailsPage({ params }) {
               </CardContent>
             </Card>
           </div>
+
+          <Separator />
+
+          {/* Comment System Component */}
+          <CommentSystem ideaId={id} />
         </div>
 
         {/* Sidebar Info */}
