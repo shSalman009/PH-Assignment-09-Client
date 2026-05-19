@@ -13,3 +13,12 @@ export const fetchIdeaById = async (id) => {
   const data = await res.json();
   return data || null;
 };
+
+// Get ideas by user email
+export const fetchIdeasByEmail = async (email) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/ideas?authorEmail=${email}`,
+  );
+  const data = await res.json();
+  return data || [];
+};
