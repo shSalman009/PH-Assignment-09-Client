@@ -43,7 +43,7 @@ export const editComment = async (commentId, updatedText, ideaId) => {
 export const deleteComment = async (commentId, ideaId) => {
   "use server";
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/${commentId}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments/${commentId}?ideaId=${ideaId}`,
     {
       method: "DELETE",
     },
