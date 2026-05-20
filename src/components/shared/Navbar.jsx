@@ -23,6 +23,7 @@ import {
 import { ThemeToggle } from "./ThemeToggle";
 import { authClient } from "@/lib/auth-client";
 import { navLinks } from "@/config/navigation";
+import NavLink from "./NavLink";
 
 export default function Navbar() {
   const { data: session, isPending } = authClient.useSession();
@@ -46,13 +47,13 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
           {filteredLinks.map((link) => (
-            <Link
+            <NavLink
               key={link.href}
               href={link.href}
               className="transition-colors hover:text-primary"
             >
               {link.name}
-            </Link>
+            </NavLink>
           ))}
         </nav>
 
@@ -128,13 +129,13 @@ export default function Navbar() {
                 </SheetHeader>
                 <div className="flex flex-col space-y-3 px-4">
                   {filteredLinks.map((link) => (
-                    <Link
+                    <NavLink
                       key={link.href}
                       href={link.href}
                       className="text-base font-semibold"
                     >
                       {link.name}
-                    </Link>
+                    </NavLink>
                   ))}
 
                   {!user && <hr className="my-2 border-t" />}
