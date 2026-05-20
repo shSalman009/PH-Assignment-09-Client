@@ -5,6 +5,14 @@ export const fetchIdeas = async () => {
   return data || [];
 };
 
+export const fetchTrendingIdeas = async () => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/ideas/trending`,
+  );
+  const data = await res.json();
+  return data || [];
+};
+
 // Get a single idea by ID
 export const fetchIdeaById = async (id) => {
   const res = await fetch(

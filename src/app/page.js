@@ -1,11 +1,11 @@
 import Banner from "@/components/home/Banner";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import TrendingIdeas from "@/components/home/TrendingIdeas";
 
 export default function Home() {
   return (
     <div>
       <Banner />
+      <TrendingIdeas />
     </div>
   );
 }
