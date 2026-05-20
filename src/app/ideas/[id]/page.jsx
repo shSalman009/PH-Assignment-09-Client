@@ -78,7 +78,7 @@ export default async function IdeaDetailsPage({ params }) {
           <Separator />
 
           {/* Comment System Component */}
-          <CommentSystem ideaId={id} />
+          <CommentSystem ideaId={id} ideaTitle={idea.title} />
         </div>
 
         {/* Sidebar Info */}

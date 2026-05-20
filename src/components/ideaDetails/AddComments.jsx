@@ -7,7 +7,7 @@ import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function AddComments({ ideaId, addCommentAction }) {
+export default function AddComments({ ideaId, ideaTitle, addCommentAction }) {
   const [commentText, setCommentText] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -22,6 +22,7 @@ export default function AddComments({ ideaId, addCommentAction }) {
     if (user && commentText.trim() !== "" && !isPending) {
       const payload = {
         ideaId,
+        ideaTitle,
         userId: user.id,
         userName: user.name,
         userPhoto: user.image || "",
