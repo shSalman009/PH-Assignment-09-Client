@@ -8,6 +8,12 @@ import {
 } from "@/components/ui/card";
 import { createIdea } from "@/lib/ideas/actions";
 
+export const metadata = {
+  title: "Add a New Idea",
+  description:
+    "Share your startup concept with the community to get validation and feedback.",
+};
+
 export default function CreateIdeaPage() {
   return (
     <div className="container mx-auto py-12 px-4 flex justify-center">

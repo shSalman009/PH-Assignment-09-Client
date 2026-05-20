@@ -13,6 +13,22 @@ import { fetchIdeaById } from "@/lib/ideas/data";
 import Image from "next/image";
 import CommentSystem from "@/components/ideaDetails/CommentSystem";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const idea = await fetchIdeaById(id);
+
+  if (!idea) {
+    return {
+      title: "Idea Not Found",
+    };
+  }
+
+  return {
+    title: idea.title,
+    description: idea.shortDescription.substring(0, 150),
+  };
+}
+
 export default async function IdeaDetailsPage({ params }) {
   const { id } = await params;
   const idea = await fetchIdeaById(id);

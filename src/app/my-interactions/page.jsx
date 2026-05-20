@@ -8,6 +8,12 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { format } from "date-fns";
 
+export const metadata = {
+  title: "My Interactions",
+  description:
+    "View and manage the comments you've participated in across the IdeaVault community.",
+};
+
 export default async function MyInteractionsPage() {
   const session = await auth.api.getSession({
     headers: await headers(),

@@ -3,6 +3,11 @@ import { fetchIdeas } from "@/lib/ideas/data";
 import Filter from "@/components/ideas/Filter";
 import Searchbar from "@/components/ideas/Searchbar";
 
+export const metadata = {
+  title: "All Ideas",
+  description: "Browse All Ideas",
+};
+
 export default async function IdeasPage() {
   const ideas = await fetchIdeas();
 

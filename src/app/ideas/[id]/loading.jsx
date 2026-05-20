@@ -1,4 +1,3 @@
-// app/ideas/loading.tsx
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function IdeaDetailsLoading() {

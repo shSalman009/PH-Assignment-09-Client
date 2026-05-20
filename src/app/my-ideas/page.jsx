@@ -6,6 +6,12 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { fetchIdeasByEmail } from "@/lib/ideas/data";
 
+export const metadata = {
+  title: "My Vault",
+  description:
+    "Manage, refine, and track the engagement of your submitted startup ideas.",
+};
+
 export default async function MyIdeasPage() {
   const session = await auth.api.getSession({
     headers: await headers(),

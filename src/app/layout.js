@@ -1,25 +1,9 @@
-import {
-  Fira_Code,
-  Geist,
-  Geist_Mono,
-  Inter,
-  Noto_Serif_Georgian,
-} from "next/font/google";
+import { Fira_Code, Inter, Noto_Serif_Georgian } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import { ThemeProvider } from "@/providers/theme-provider";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "react-hot-toast";
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -37,10 +21,12 @@ const fontMono = Fira_Code({
 });
 
 export const metadata = {
-  title: "IdeaVault",
-  description: "A knowledge management system",
+  title: {
+    template: "%s | IdeaVault",
+    default: "Home | IdeaVault",
+  },
+  description: "IdeaVault - Secure Your Next Big Idea",
 };
-
 export default function RootLayout({ children }) {
   return (
     <html
