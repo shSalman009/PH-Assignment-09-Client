@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Lightbulb, Mail, MapPin, X } from "lucide-react";
-import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -89,7 +89,7 @@ export default function Footer() {
                 href="#"
                 className="text-muted-foreground hover:text-foreground"
               >
-                <FaTwitter className="h-5 w-5" />{" "}
+                <FaXTwitter className="h-5 w-5" />{" "}
                 {/* This is the updated X logo */}
               </Link>
               <Link
