@@ -26,6 +26,12 @@ export const loginFormSchema = z.object({
     ),
 });
 
+// Update Profile Schema
+export const updateProfileSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  photoUrl: z.string().url("Invalid URL format"),
+});
+
 // Idea schema
 export const ideaSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
