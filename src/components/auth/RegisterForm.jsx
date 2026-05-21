@@ -62,7 +62,7 @@ export default function RegisterForm() {
           );
         },
         onSuccess: (res) => {
-          router.push("/");
+          router.replace("/");
         },
       },
     );

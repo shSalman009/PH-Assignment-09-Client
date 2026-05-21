@@ -23,7 +23,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { Spinner } from "@/components/ui/spinner";
 import { loginFormSchema } from "@/lib/schemas";
@@ -40,6 +40,7 @@ export default function LoginForm() {
   });
 
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   // Form submission handler
   const onSubmit = async (data) => {
@@ -55,7 +56,8 @@ export default function LoginForm() {
           toast.error(ctx.error.message || "Sign-in failed. Please try again.");
         },
         onSuccess: (res) => {
-          router.push("/");
+          const redirectTo = searchParams.get("redirect") || "/";
+          router.replace(redirectTo);
         },
       },
     );
