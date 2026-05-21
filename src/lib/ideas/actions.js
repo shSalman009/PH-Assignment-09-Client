@@ -1,12 +1,17 @@
 import { revalidatePath } from "next/cache";
+import { getToken } from "../serverUtils";
 
 // Create Idea
 export const createIdea = async (data) => {
   "use server";
+
+  const token = await getToken();
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/ideas`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });
@@ -19,12 +24,14 @@ export const createIdea = async (data) => {
 // Update Idea
 export const updateIdea = async (id, data) => {
   "use server";
+  const token = await getToken();
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/ideas/${id}`,
     {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     },
@@ -40,12 +47,14 @@ export const updateIdea = async (id, data) => {
 // Delete Idea
 export const deleteIdea = async (id) => {
   "use server";
+  const token = await getToken();
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/ideas/${id}`,
     {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     },
   );

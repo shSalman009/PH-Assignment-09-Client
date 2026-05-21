@@ -50,27 +50,31 @@ export default function CreateIdeaForm({ createIdeaAction }) {
 
   // Handle form submission
   const onSubmit = async (values) => {
-    setLoading(true);
-    const processedData = {
-      ...values,
-      tags: values.tags ? values.tags.split(",").map((t) => t.trim()) : [],
-      authorName: user.name,
-      authorEmail: user.email,
-      createdAt: new Date().toISOString(),
-      commentCount: 0,
-      bookmarkCount: 0,
-    };
+    try {
+      setLoading(true);
+      const processedData = {
+        ...values,
+        tags: values.tags ? values.tags.split(",").map((t) => t.trim()) : [],
+        authorName: user?.name,
+        authorEmail: user?.email,
+        createdAt: new Date().toISOString(),
+        commentCount: 0,
+        bookmarkCount: 0,
+      };
 
-    const result = await createIdeaAction(processedData);
+      const result = await createIdeaAction(processedData);
 
-    if (result.acknowledged) {
-      toast.success("Idea submitted successfully!");
-      form.reset();
-    } else {
-      toast.error("Failed to submit idea.");
+      if (result.acknowledged) {
+        toast.success("Idea submitted successfully!");
+        form.reset();
+      } else {
+        toast.error("Failed to submit idea.");
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (

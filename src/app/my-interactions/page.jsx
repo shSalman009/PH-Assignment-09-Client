@@ -19,7 +19,7 @@ export default async function MyInteractionsPage() {
     headers: await headers(),
   });
 
-  const interactions = await fetchCommentsByUserId(session.user.id);
+  const interactions = await fetchCommentsByUserId(session?.user.id);
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
