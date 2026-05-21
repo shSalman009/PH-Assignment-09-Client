@@ -36,24 +36,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/categories"
-                  className="hover:text-primary transition-colors"
-                >
+                <Link href="/" className="hover:text-primary transition-colors">
                   Categories
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/trending"
-                  className="hover:text-primary transition-colors"
-                >
+                <Link href="/" className="hover:text-primary transition-colors">
                   Trending
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/add-idea"
+                  href="/ideas/create"
                   className="hover:text-primary transition-colors"
                 >
                   Submit an Idea

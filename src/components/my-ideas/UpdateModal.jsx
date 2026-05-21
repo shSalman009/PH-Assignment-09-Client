@@ -80,7 +80,7 @@ export function UpdateIdeaModal({ idea, updateIdeaAction }) {
           <Edit className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-2xl max-h-screen overflow-auto pb-0">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-auto pb-0">
         <DialogHeader>
           <DialogTitle>Update Idea</DialogTitle>
         </DialogHeader>
