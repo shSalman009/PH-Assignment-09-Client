@@ -1,15 +1,17 @@
-import { IdeaCard } from "@/components/ideas/IdeaCard";
-import { fetchIdeas } from "@/lib/ideas/data";
 import Filter from "@/components/ideas/Filter";
 import Searchbar from "@/components/ideas/Searchbar";
+import IdeaList from "@/components/ideas/IdeaList";
+import Loading from "@/components/shared/LoadingState";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "All Ideas",
   description: "Browse All Ideas",
 };
 
-export default async function IdeasPage() {
-  const ideas = await fetchIdeas();
+export default async function IdeasPage({ searchParams }) {
+  const params = await searchParams;
+  const searchTerm = params.title || "";
 
   return (
     <div className="container mx-auto py-10 px-4">
@@ -24,7 +26,7 @@ export default async function IdeasPage() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
           {/* Search Bar */}
           <Searchbar />
 
@@ -33,20 +35,10 @@ export default async function IdeasPage() {
         </div>
       </div>
 
-      {/* Ideas Grid */}
-      {ideas.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {ideas.map((idea) => (
-            <IdeaCard key={idea._id} idea={idea} />
-          ))}
-        </div>
-      ) : (
-        <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed">
-          <p className="text-muted-foreground">
-            No ideas found matching your criteria.
-          </p>
-        </div>
-      )}
+      {/* Ideas List */}
+      <Suspense key={searchTerm} fallback={<Loading />}>
+        <IdeaList searchTerm={searchTerm} />
+      </Suspense>
     </div>
   );
 }
