@@ -12,6 +12,7 @@ import {
 import { fetchIdeaById } from "@/lib/ideas/data";
 import Image from "next/image";
 import CommentSystem from "@/components/ideaDetails/CommentSystem";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -32,6 +33,10 @@ export async function generateMetadata({ params }) {
 export default async function IdeaDetailsPage({ params }) {
   const { id } = await params;
   const idea = await fetchIdeaById(id);
+
+  if (!idea) {
+    return notFound();
+  }
 
   return (
     <div className="container mx-auto py-10 px-4 max-w-5xl">
