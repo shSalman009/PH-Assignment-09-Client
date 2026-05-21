@@ -21,7 +21,7 @@ export default async function MyIdeasPage() {
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-6xl">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+      <div className="flex flex-col md:flex-row justify-between mb-10 gap-6">
         <div className="space-y-1">
           <h1 className="text-4xl font-bold tracking-tight">
             Your Creative Vault

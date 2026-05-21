@@ -29,7 +29,7 @@ export default function MyIdeaCard({ idea }) {
       <div className="grow space-y-3 w-full">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="text-2xl font-bold">{idea.title}</h3>
+            <h3 className="text-2xl font-bold line-clamp-2">{idea.title}</h3>
             <p className="text-sm text-muted-foreground">
               Published on {format(new Date(idea.createdAt), "MMMM d, yyyy")}
             </p>

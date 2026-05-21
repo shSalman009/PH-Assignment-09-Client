@@ -22,7 +22,7 @@ export default async function MyInteractionsPage() {
   const interactions = await fetchCommentsByUserId(session?.user.id);
 
   return (
-    <div className="container mx-auto py-12 px-4 max-w-4xl">
+    <div className="container mx-auto py-12 px-4 max-w-6xl">
       <div className="space-y-1 mb-10">
         <h1 className="text-4xl font-bold tracking-tight">My Interactions</h1>
         <p className="text-muted-foreground text-lg">

@@ -59,7 +59,11 @@ export default function AddComments({ ideaId, ideaTitle, addCommentAction }) {
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
         />
-        <Button type="submit" disabled={loading || commentText.trim() === ""}>
+        <Button
+          className="sm:float-start float-end"
+          type="submit"
+          disabled={loading || commentText.trim() === ""}
+        >
           {loading ? "Posting..." : "Post Comment"}
         </Button>
       </form>
