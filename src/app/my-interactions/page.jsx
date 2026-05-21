@@ -23,7 +23,7 @@ export default async function MyInteractionsPage() {
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-6xl">
-      <div className="space-y-1 mb-10">
+      <div className="space-y-1 mb-10 md:text-start text-center">
         <h1 className="text-4xl font-bold tracking-tight">My Interactions</h1>
         <p className="text-muted-foreground text-lg">
           Manage your feedback and comments across the community.

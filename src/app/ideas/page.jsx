@@ -17,8 +17,8 @@ export default async function IdeasPage({ searchParams }) {
   return (
     <div className="container mx-auto py-10 px-4">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-        <div>
+      <div className="flex flex-col lg:flex-row items-center md:items-start lg:items-center justify-between gap-6 mb-10">
+        <div className="text-center md:text-start">
           <h1 className="text-4xl font-bold tracking-tight mb-2">
             Explore Innovations
           </h1>
@@ -27,7 +27,7 @@ export default async function IdeasPage({ searchParams }) {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row justify-center lg:justify-end gap-6 w-full md:w-auto">
           {/* Search Bar */}
           <Searchbar />
 

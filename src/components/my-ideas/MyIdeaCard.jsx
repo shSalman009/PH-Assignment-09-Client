@@ -10,9 +10,9 @@ import DeleteIdeaButton from "./DeleteIdeaButton";
 
 export default function MyIdeaCard({ idea }) {
   return (
-    <div className="group relative flex flex-col md:flex-row items-center gap-6 bg-card border rounded-3xl p-5 transition-all hover:shadow-xl hover:border-primary/20">
+    <div className="group relative flex flex-col lg:flex-row items-center gap-6 bg-card border rounded-3xl p-5 transition-all hover:shadow-xl hover:border-primary/20">
       {/* Image */}
-      <div className="relative w-full md:w-64 h-44 shrink-0 overflow-hidden rounded-2xl">
+      <div className="relative w-full lg:w-64 h-44 shrink-0 overflow-hidden rounded-2xl">
         <Image
           width={256}
           height={176}
@@ -29,14 +29,16 @@ export default function MyIdeaCard({ idea }) {
       <div className="grow space-y-3 w-full">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="text-2xl font-bold line-clamp-2">{idea.title}</h3>
+            <h3 className="text-2xl font-bold line-clamp-2 text-wrap">
+              {idea.title}
+            </h3>
             <p className="text-sm text-muted-foreground">
               Published on {format(new Date(idea.createdAt), "MMMM d, yyyy")}
             </p>
           </div>
 
           {/* Actions for Desktop */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
             <Button
               variant="secondary"
               size="icon"
@@ -69,7 +71,7 @@ export default function MyIdeaCard({ idea }) {
       </div>
 
       {/* Actions for Mobile */}
-      <div className="flex md:hidden w-full gap-2 pt-2 border-t">
+      <div className="flex lg:hidden w-full gap-2 pt-2 border-t">
         <Button variant="outline" className="flex-1" asChild>
           <Link href={`/ideas/${idea._id}`}>View</Link>
         </Button>
