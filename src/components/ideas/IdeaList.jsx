@@ -1,8 +1,8 @@
 import { fetchIdeas } from "@/lib/ideas/data";
 import { IdeaCard } from "./IdeaCard";
 
-export default async function IdeaList({ searchTerm }) {
-  const ideas = await fetchIdeas(searchTerm);
+export default async function IdeaList({ searchTerm, category }) {
+  const ideas = await fetchIdeas(searchTerm, category);
 
   return (
     <div>

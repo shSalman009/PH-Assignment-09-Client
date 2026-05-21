@@ -3,9 +3,18 @@
 import { getToken } from "../serverUtils";
 
 // Get all ideas from the API
-export const fetchIdeas = async (searchValue) => {
+export const fetchIdeas = async (searchValue, category) => {
+  const query = new URLSearchParams();
+
+  if (searchValue) {
+    query.append("title", searchValue);
+  }
+  if (category && category !== "all") {
+    query.append("category", category);
+  }
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/ideas?title=${searchValue}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/ideas?${query.toString()}`,
   );
   const data = await res.json();
   return data || [];

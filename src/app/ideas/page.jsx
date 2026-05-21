@@ -12,6 +12,7 @@ export const metadata = {
 export default async function IdeasPage({ searchParams }) {
   const params = await searchParams;
   const searchTerm = params.title || "";
+  const category = params.category || "";
 
   return (
     <div className="container mx-auto py-10 px-4">
@@ -36,8 +37,8 @@ export default async function IdeasPage({ searchParams }) {
       </div>
 
       {/* Ideas List */}
-      <Suspense key={searchTerm} fallback={<Loading />}>
-        <IdeaList searchTerm={searchTerm} />
+      <Suspense key={searchTerm + category} fallback={<Loading />}>
+        <IdeaList searchTerm={searchTerm} category={category} />
       </Suspense>
     </div>
   );

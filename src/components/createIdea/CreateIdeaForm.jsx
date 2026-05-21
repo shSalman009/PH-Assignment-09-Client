@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import { ideaSchema } from "@/lib/schemas";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
+import { categories } from "@/lib/data";
 
 export default function CreateIdeaForm({ createIdeaAction }) {
   // Form setup with validation
@@ -109,11 +110,11 @@ export default function CreateIdeaForm({ createIdeaAction }) {
                     <SelectValue placeholder="Select Category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Tech">Tech</SelectItem>
-                    <SelectItem value="Health">Health</SelectItem>
-                    <SelectItem value="AI">AI</SelectItem>
-                    <SelectItem value="Education">Education</SelectItem>
-                    <SelectItem value="Fintech">Fintech</SelectItem>
+                    {categories.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 {fieldState.invalid && (

@@ -6,10 +6,11 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 
 export default function Searchbar() {
-  const [search, setSearch] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("title") || "");
 
+  // Handle search
   const handleSearch = (e) => {
     e.preventDefault();
 
