@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Edit2, MoreVertical, Trash2 } from "lucide-react";
+import { Edit2, Loader2, MoreVertical, Trash2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +24,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { Spinner } from "../ui/spinner";
 
 export default function CommentItem({
   comment,
@@ -140,8 +141,19 @@ export default function CommentItem({
                         <Button variant="outline">Cancel</Button>
                       </DialogClose>
 
-                      <Button variant="destructive" onClick={handleDelete}>
-                        Delete
+                      <Button
+                        disabled={loading}
+                        variant="destructive"
+                        onClick={handleDelete}
+                      >
+                        {loading ? (
+                          <div className="flex items-center justify-center gap-2">
+                            <Loader2 className="h-5 w-5 animate-spin" />
+                            <span>Deleting...</span>
+                          </div>
+                        ) : (
+                          "Delete"
+                        )}
                       </Button>
                     </DialogFooter>
                   </DialogContent>
@@ -173,7 +185,14 @@ export default function CommentItem({
                 className="mt-2"
                 onClick={handleSave}
               >
-                Save
+                {loading ? (
+                  <span className="flex items-center">
+                    <Spinner className="mr-2 h-4 w-4 animate-spin" />
+                    Saving...
+                  </span>
+                ) : (
+                  "Save"
+                )}
               </Button>
             </div>
           </div>

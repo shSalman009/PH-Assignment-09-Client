@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Edit } from "lucide-react";
+import { Edit, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
@@ -30,6 +30,7 @@ import {
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 import toast from "react-hot-toast";
+import { Spinner } from "../ui/spinner";
 
 export function UpdateIdeaModal({ idea, updateIdeaAction }) {
   const [open, setOpen] = useState(false);
@@ -54,11 +55,14 @@ export function UpdateIdeaModal({ idea, updateIdeaAction }) {
 
   // Update Idea Handler
   const handleUpdate = async (values) => {
-    const updatedData = {
-      ...values,
-      tags: values.tags ? values.tags.split(",").map((tag) => tag.trim()) : [],
-    };
     try {
+      setLoading(true);
+      const updatedData = {
+        ...values,
+        tags: values.tags
+          ? values.tags.split(",").map((tag) => tag.trim())
+          : [],
+      };
       const result = await updateIdeaAction(idea._id, updatedData);
       if (result.modifiedCount > 0) {
         toast.success("Idea updated successfully!");
@@ -270,7 +274,14 @@ export function UpdateIdeaModal({ idea, updateIdeaAction }) {
               Cancel
             </Button>
             <Button disabled={loading} type="submit">
-              {loading ? "Updating..." : "Update Idea"}
+              {loading ? (
+                <span className="flex items-center">
+                  <Spinner className="mr-2 h-4 w-4 animate-spin" />
+                  Updating...
+                </span>
+              ) : (
+                "Update Idea"
+              )}
             </Button>
           </div>
         </form>

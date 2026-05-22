@@ -15,15 +15,22 @@ import {
 import { Button } from "../ui/button";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { Spinner } from "../ui/spinner";
 
 export default function DeleteIdeaButton({ idea, deleteIdeaAction }) {
   const [loading, setLoading] = useState(false);
-  const handleDelete = async () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
     try {
       setLoading(true);
+
       const result = await deleteIdeaAction(idea._id);
+
       if (result.deletedCount > 0) {
         toast.success(`"${idea.title}" has been deleted.`);
+        setIsOpen(false);
       } else {
         toast.error(`Failed to delete "${idea.title}". Please try again.`);
       }
@@ -35,7 +42,7 @@ export default function DeleteIdeaButton({ idea, deleteIdeaAction }) {
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button
           variant="ghost"
@@ -60,7 +67,14 @@ export default function DeleteIdeaButton({ idea, deleteIdeaAction }) {
             onClick={handleDelete}
             disabled={loading}
           >
-            Delete Permanently
+            {loading ? (
+              <span className="flex items-center">
+                <Spinner className="mr-2 h-4 w-4 animate-spin" />
+                Deleting...
+              </span>
+            ) : (
+              "Delete Permanently"
+            )}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

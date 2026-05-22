@@ -24,6 +24,7 @@ import { ideaSchema } from "@/lib/schemas";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { categories } from "@/lib/data";
+import { Spinner } from "../ui/spinner";
 
 export default function CreateIdeaForm({ createIdeaAction }) {
   // Form setup with validation
@@ -245,10 +246,18 @@ export default function CreateIdeaForm({ createIdeaAction }) {
       </FieldGroup>
 
       <Button
+        disabled={loading}
         type="submit"
-        className="w-full h-14 text-xl font-bold bg-primary hover:bg-primary/90"
+        className="w-full h-14 text-xl font-bold bg-primary hover:bg-primary/90 transition-all"
       >
-        {loading ? "Submitting..." : "Submit Idea to Vault"}
+        {loading ? (
+          <span className="flex items-center">
+            <Spinner className="mr-2 h-4 w-4 animate-spin" />
+            Submitting...
+          </span>
+        ) : (
+          "Submit Idea to Vault"
+        )}
       </Button>
     </form>
   );

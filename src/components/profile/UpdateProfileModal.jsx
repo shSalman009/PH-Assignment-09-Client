@@ -17,6 +17,7 @@ import { updateProfileSchema } from "@/lib/schemas";
 import { Field, FieldError, FieldLabel } from "../ui/field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import { Spinner } from "../ui/spinner";
 
 export default function UpdateProfileModal({ currentUser }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +31,6 @@ export default function UpdateProfileModal({ currentUser }) {
   });
 
   const [loading, setLoading] = useState(false);
-
   // Form submission handler
   const onSubmit = async (data) => {
     setLoading(true);
@@ -106,7 +106,14 @@ export default function UpdateProfileModal({ currentUser }) {
 
           <DialogFooter>
             <Button disabled={loading} type="submit" className="w-full">
-              {loading ? "Saving..." : "Save Changes"}
+              {loading ? (
+                <span className="flex items-center">
+                  <Spinner className="mr-2 h-4 w-4 animate-spin" />
+                  Saving...
+                </span>
+              ) : (
+                "Save Changes"
+              )}
             </Button>
           </DialogFooter>
         </form>
