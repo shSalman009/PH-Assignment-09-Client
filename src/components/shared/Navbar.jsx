@@ -24,6 +24,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { authClient } from "@/lib/auth-client";
 import { navLinks } from "@/config/navigation";
 import NavLink from "./NavLink";
+import { Logo } from "./Logo";
 
 export default function Navbar() {
   const { data: session, isPending } = authClient.useSession();
@@ -33,16 +34,13 @@ export default function Navbar() {
     await authClient.signOut();
   };
 
-  const filteredLinks = navLinks.filter((link) => !link.private || user);
+  const filteredLinks = navLinks;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
-          <Lightbulb className="h-6 w-6 text-yellow-500" />
-          <span className="text-xl font-bold tracking-tight">IdeaVault</span>
-        </Link>
+        <Logo />
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
@@ -120,11 +118,8 @@ export default function Navbar() {
               </SheetTrigger>
               <SheetContent side="left" className="w-full sm:w-80">
                 <SheetHeader>
-                  <SheetTitle className="flex items-center space-x-2">
-                    <Lightbulb className="h-6 w-6 text-yellow-500" />
-                    <span className="text-xl font-bold tracking-tight">
-                      IdeaVault
-                    </span>
+                  <SheetTitle className="flex items-center">
+                    <Logo />
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col space-y-3 px-4">

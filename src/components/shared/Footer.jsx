@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Lightbulb, Mail, MapPin, X } from "lucide-react";
+import { Mail, MapPin, X } from "lucide-react";
 import { FaFacebook, FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { Logo } from "./Logo";
 
 export default function Footer() {
   return (
@@ -9,12 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Column 1: Logo & Mission */}
           <div className="flex flex-col space-y-4">
-            <Link href="/" className="flex items-center space-x-2">
-              <Lightbulb className="h-6 w-6 text-yellow-500" />
-              <span className="text-xl font-bold tracking-tight text-foreground">
-                IdeaVault
-              </span>
-            </Link>
+            <Logo />
             <p className="text-sm text-muted-foreground">
               Empowering innovators to share, validate, and grow their startup
               concepts through community collaboration.
