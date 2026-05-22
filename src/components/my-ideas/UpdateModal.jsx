@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Edit } from "lucide-react";
+import { Edit, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
@@ -54,11 +54,14 @@ export function UpdateIdeaModal({ idea, updateIdeaAction }) {
 
   // Update Idea Handler
   const handleUpdate = async (values) => {
-    const updatedData = {
-      ...values,
-      tags: values.tags ? values.tags.split(",").map((tag) => tag.trim()) : [],
-    };
     try {
+      setLoading(true);
+      const updatedData = {
+        ...values,
+        tags: values.tags
+          ? values.tags.split(",").map((tag) => tag.trim())
+          : [],
+      };
       const result = await updateIdeaAction(idea._id, updatedData);
       if (result.modifiedCount > 0) {
         toast.success("Idea updated successfully!");
@@ -270,7 +273,14 @@ export function UpdateIdeaModal({ idea, updateIdeaAction }) {
               Cancel
             </Button>
             <Button disabled={loading} type="submit">
-              {loading ? "Updating..." : "Update Idea"}
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <span>Updating...</span>
+                </div>
+              ) : (
+                "Update Idea"
+              )}
             </Button>
           </div>
         </form>

@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 export default function AddComments({ ideaId, ideaTitle, addCommentAction }) {
   const [commentText, setCommentText] = useState("");
@@ -19,28 +20,36 @@ export default function AddComments({ ideaId, ideaTitle, addCommentAction }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (user && commentText.trim() !== "" && !isPending) {
-      const payload = {
-        ideaId,
-        ideaTitle,
-        userId: user.id,
-        userName: user.name,
-        userPhoto: user.image || "",
-        createdAt: new Date().toISOString(),
-        text: commentText,
-      };
-
+    try {
       setLoading(true);
-      await addCommentAction(payload);
-      setCommentText("");
-      toast.success("Comment added successfully!", {
-        position: "bottom-center",
-      });
-      setLoading(false);
-    } else {
+
+      if (user && commentText.trim() !== "" && !isPending) {
+        const payload = {
+          ideaId,
+          ideaTitle,
+          userId: user.id,
+          userName: user.name,
+          userPhoto: user.image || "",
+          createdAt: new Date().toISOString(),
+          text: commentText,
+        };
+
+        await addCommentAction(payload);
+        setCommentText("");
+        toast.success("Comment added successfully!", {
+          position: "bottom-center",
+        });
+      } else {
+        toast.error("Something went wrong. Please try again.", {
+          position: "bottom-center",
+        });
+      }
+    } catch (error) {
       toast.error("Something went wrong. Please try again.", {
         position: "bottom-center",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,7 +73,14 @@ export default function AddComments({ ideaId, ideaTitle, addCommentAction }) {
           type="submit"
           disabled={loading || commentText.trim() === ""}
         >
-          {loading ? "Posting..." : "Post Comment"}
+          {loading ? (
+            <div className="flex items-center justify-center gap-2">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span>Posting...</span>
+            </div>
+          ) : (
+            "Post Comment"
+          )}
         </Button>
       </form>
     </div>

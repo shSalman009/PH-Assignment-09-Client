@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,12 +18,18 @@ import { useState } from "react";
 
 export default function DeleteIdeaButton({ idea, deleteIdeaAction }) {
   const [loading, setLoading] = useState(false);
-  const handleDelete = async () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
     try {
       setLoading(true);
+
       const result = await deleteIdeaAction(idea._id);
+
       if (result.deletedCount > 0) {
         toast.success(`"${idea.title}" has been deleted.`);
+        setIsOpen(false);
       } else {
         toast.error(`Failed to delete "${idea.title}". Please try again.`);
       }
@@ -35,7 +41,7 @@ export default function DeleteIdeaButton({ idea, deleteIdeaAction }) {
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button
           variant="ghost"
@@ -60,7 +66,14 @@ export default function DeleteIdeaButton({ idea, deleteIdeaAction }) {
             onClick={handleDelete}
             disabled={loading}
           >
-            Delete Permanently
+            {loading ? (
+              <div className="flex items-center justify-center gap-2">
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Deleting...</span>
+              </div>
+            ) : (
+              "Delete Permanently"
+            )}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

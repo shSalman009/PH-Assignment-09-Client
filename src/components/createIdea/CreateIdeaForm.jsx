@@ -24,6 +24,7 @@ import { ideaSchema } from "@/lib/schemas";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { categories } from "@/lib/data";
+import { Loader2 } from "lucide-react";
 
 export default function CreateIdeaForm({ createIdeaAction }) {
   // Form setup with validation
@@ -245,10 +246,18 @@ export default function CreateIdeaForm({ createIdeaAction }) {
       </FieldGroup>
 
       <Button
+        disabled={loading}
         type="submit"
-        className="w-full h-14 text-xl font-bold bg-primary hover:bg-primary/90"
+        className="w-full h-14 text-xl font-bold bg-primary hover:bg-primary/90 transition-all"
       >
-        {loading ? "Submitting..." : "Submit Idea to Vault"}
+        {loading ? (
+          <div className="flex items-center justify-center gap-2">
+            <Loader2 className="h-5 w-5 animate-spin" />
+            <span>Submitting...</span>
+          </div>
+        ) : (
+          "Submit Idea to Vault"
+        )}
       </Button>
     </form>
   );
