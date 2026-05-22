@@ -39,9 +39,10 @@ export default function LoginForm() {
     },
   });
 
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
+  const redirectTo = searchParams.get("redirect") || "/";
+
   // Form submission handler
   const onSubmit = async (data) => {
     setLoading(true);
@@ -50,14 +51,11 @@ export default function LoginForm() {
       {
         email,
         password,
+        callbackURL: redirectTo,
       },
       {
         onError: (ctx) => {
           toast.error(ctx.error.message || "Sign-in failed. Please try again.");
-        },
-        onSuccess: (res) => {
-          const redirectTo = searchParams.get("redirect") || "/";
-          router.replace(redirectTo);
         },
       },
     );
