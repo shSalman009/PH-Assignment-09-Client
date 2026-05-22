@@ -3,9 +3,13 @@ import { fetchTrendingIdeas } from "@/lib/ideas/data";
 import { TrendingUp, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { IdeaCard } from "../ideas/IdeaCard";
+import { fetchBookmarks } from "@/lib/bookmarks/data";
 
 export default async function TrendingIdeas() {
   const trendingIdeas = await fetchTrendingIdeas();
+  const bookmarks = await fetchBookmarks();
+
+  const bookmarksArray = bookmarks.map((bookmark) => bookmark.ideaId);
 
   return (
     <section className="py-20">
@@ -34,9 +38,18 @@ export default async function TrendingIdeas() {
 
         {/* Trending Ideas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {trendingIdeas.slice(0, 6).map((idea, index) => (
-            <IdeaCard key={idea._id} idea={idea} rank={index + 1} />
-          ))}
+          {trendingIdeas.slice(0, 6).map((idea, index) => {
+            const isBookmarked = bookmarksArray.includes(idea._id);
+
+            return (
+              <IdeaCard
+                isBookmarked={isBookmarked}
+                key={idea._id}
+                idea={idea}
+                rank={index + 1}
+              />
+            );
+          })}
         </div>
 
         {/* Mobile only - See All Button */}

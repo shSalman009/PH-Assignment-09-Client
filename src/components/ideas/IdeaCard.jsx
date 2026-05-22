@@ -11,8 +11,16 @@ import Link from "next/link";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { format } from "date-fns";
+import BookmarkButton from "./BookmarkButton";
+import { toggleBookmarkAction } from "@/lib/bookmarks/actions";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export function IdeaCard({ idea, rank }) {
+export async function IdeaCard({ idea, rank, isBookmarked }) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <Card className="flex flex-col h-full transition-all hover:shadow-xl hover:-translate-y-1 border-muted-foreground/10 pt-0 relative group">
       {/* Ranking Badge */}
@@ -28,11 +36,21 @@ export function IdeaCard({ idea, rank }) {
           height={225}
           src={idea.imageUrl}
           alt={idea.title}
-          className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+          className="object-cover w-full h-full transition-transform duration-500"
         />
         <Badge className="absolute top-3 right-3 shadow-sm backdrop-blur-md bg-primary/80">
           {idea.category}
         </Badge>
+
+        {session && (
+          <div className="absolute bottom-3 right-3 bg-background rounded-full">
+            <BookmarkButton
+              isBookmarkedInitially={isBookmarked}
+              ideaId={idea._id}
+              toggleBookmarkAction={toggleBookmarkAction}
+            />
+          </div>
+        )}
       </div>
 
       <CardHeader className="space-y-1">

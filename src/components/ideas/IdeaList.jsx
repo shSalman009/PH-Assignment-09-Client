@@ -1,16 +1,29 @@
 import { fetchIdeas } from "@/lib/ideas/data";
 import { IdeaCard } from "./IdeaCard";
+import { fetchBookmarks } from "@/lib/bookmarks/data";
 
 export default async function IdeaList({ searchTerm, category }) {
   const ideas = await fetchIdeas(searchTerm, category);
+  const bookmarks = await fetchBookmarks();
+  // console.log(ideas);
+  // console.log(bookmarks);
+  const bookmarksArray = bookmarks.map((bookmark) => bookmark.ideaId);
 
   return (
     <div>
       {ideas.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {ideas.map((idea) => (
-            <IdeaCard key={idea._id} idea={idea} />
-          ))}
+          {ideas.map((idea) => {
+            const isBookmarked = bookmarksArray.includes(idea._id);
+
+            return (
+              <IdeaCard
+                isBookmarked={isBookmarked}
+                key={idea._id}
+                idea={idea}
+              />
+            );
+          })}
         </div>
       ) : (
         <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed">
